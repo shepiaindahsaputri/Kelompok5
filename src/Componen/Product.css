@@ -1,0 +1,262 @@
+
+
+
+/* --- TOMBOL NAMA PRODUK --- */
+.product-name {
+  background-color: #e23232;
+  font-weight: bold;
+  padding: 12px 15px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  width: 90%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.product-name:hover {
+  background-color: #D67228;
+  transform: scale(1.05);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-name:active {
+  background-color: #B95C1F;
+  transform: scale(0.95);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  .product-card {
+    width: 200px;
+    height: 250px;
+  }
+
+  .product-name {
+    font-size: 1rem;
+    padding: 100px 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .grid-container {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .product-card {
+    width: 180px;
+    height: 220px;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* Styling utama */
+.container {
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Judul dan subjudul */
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Wrapper scroll */
+.scroll-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  width: 90%;
+  max-width: 1200px;
+  padding: 0px 0;
+  
+}
+
+/* Kontainer produk (grid scrollable) */
+.grid-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Hilangkan scrollbar bawaan */
+.grid-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card produk */
+.product-wrapper {
+  position: relative;
+}
+
+.product-card {
+  width: 250px; /* Ukuran produk lebih besar */
+  height: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Gambar produk */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Nama produk */
+.product-name {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+
+/* Tombol scroll */
+.scroll-btn {
+  
+  color: white;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(245, 173, 173, 0.9);
+}
+
+/* Tombol scroll kiri dan kanan */
+.scroll-btn.left {
+  left: 10px;
+}
+
+.scroll-btn.right {
+  right: 10px;
+}
+
+/* Pesan jika produk tidak ditemukan */
+.no-result {
+  font-size: 1.5rem;
+  color: #888;
+  margin-top: 20px;
+}
+
+/* Efek bayangan di tepi scroll-wrapper */
+.scroll-wrapper::before, .scroll-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent);
+}
+
+.scroll-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
+}
+
+/* Efek hover pada kartu produk */
+.product-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px) rotate(1deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Tombol scroll dengan efek glowing */
+.scroll-btn {
+  background: rgba(226, 50, 50, 0.8);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(226, 50, 50, 1);
+  box-shadow: 0 0 15px rgba(226, 50, 50, 0.8);
+}
+
+/* Efek loading pada produk */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.product-card {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-in-out forwards;
+}
+
+/* Tambahkan delay untuk masing-masing produk */
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
