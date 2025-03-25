@@ -1,27 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Search } from "lucide-react"; // Import ikon pencarian
 import "./Navbar.css";
-import Logo from "./homeAssets/logo.png"; // Pastikan path ini sesuai dengan lokasi file logo
+import Logo from "./homeAssets/logo.png";
 
 export const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const searchRef = useRef(null);
   const navigate = useNavigate();
 
-  // Menutup input saat klik di luar
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setSearchTerm(""); // Hapus teks pencarian saat klik di luar
+        setSearchTerm("");
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Menjalankan pencarian saat pengguna menekan Enter
-  const handleSearch = (e) => {
-    if (e.key === "Enter" && searchTerm.trim() !== "") {
+  // Fungsi pencarian
+  const handleSearch = () => {
+    if (searchTerm.trim() !== "") {
       navigate(`/Product?search=${searchTerm}`);
     }
   };
@@ -51,7 +51,7 @@ export const Navbar = () => {
           </li>
         </ul>
 
-        {/* Search */}
+        {/* Search dengan ikon */}
         <div className="search-container" ref={searchRef}>
           <input
             type="text"
@@ -59,9 +59,11 @@ export const Navbar = () => {
             placeholder="Cari produk..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={handleSearch}
-            autoFocus
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
+          <button className="search-icon" onClick={handleSearch}>
+            <Search size={20} color="#333" />
+          </button>
         </div>
       </div>
     </nav>

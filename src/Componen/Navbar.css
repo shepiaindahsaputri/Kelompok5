@@ -113,7 +113,7 @@
 /* Ketika aktif */
 .search-input:focus {
   width: 250px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.007);
   border-radius: 25px;
   color: rgb(250, 249, 247);
 }
@@ -181,4 +181,28 @@
   transition: transform 0.1s ease-in-out;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 300px;
+  outline: none;
+  width: 300px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
 

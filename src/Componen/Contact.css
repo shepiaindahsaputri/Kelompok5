@@ -3,13 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 90px;
-  background-color: #ffffff;
   animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .contact-left {

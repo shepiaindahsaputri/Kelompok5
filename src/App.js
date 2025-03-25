@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,12 +16,11 @@ function App() {
         <Navbar />
         <div className="content">
           <Routes>
-          {/* Path Harus sama */}
             <Route path="/" element={<Home />} /> 
-            <Route path="/Product" element={<Product />} /> 
-            <Route path="/Contact" element={<Contact />} /> 
-            <Route path="/About" element={<About />} />
-            <Route path="/CO" element={<CO />} />
+            <Route path="/product" element={<Product />} /> 
+            <Route path="/contact" element={<Contact />} /> 
+            <Route path="/about" element={<About />} />
+            <Route path="/checkout" element={<CO />} /> {/* fix path */}
           </Routes>
         </div>
       </div>

@@ -127,11 +127,13 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
+  border-radius: 30px; /* Membuat sudut lebih tumpul */
 }
 
 .about-button:hover {
   background-color: #ffb84d;
   transform: scale(1.05);
+  border-radius: 30px; /* Membuat sudut lebih tumpul */
 }
 
 /* --- ANIMATIONS --- */
@@ -165,4 +167,38 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   color: #fff3c0;
+}
+
+.about-footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.footer-icon {
+  font-size: 24px;
+  color: white;
+  transition: 0.3s;
+}
+
+.footer-icon:hover {
+  color: #f4c430;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer-contact svg {
+  margin-right: 8px;
 }
