@@ -1,70 +1,79 @@
-"use client"
-
-import "./Product.css"
-import { useRef } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-
-// Import gambar produk
-import Apple from "./productAssets/AppleTea.png"
-import Blackcurrant from "./productAssets/Blackcurrant Tea.png"
-import Bublegum from "./productAssets/Bublegum.png"
-import Mango from "./productAssets/MangoTea.png"
-import Markisa from "./productAssets/MarkisaTea.png"
-import Sreawberry from "./productAssets/Sreawberry Tea.png"
-import Thai from "./productAssets/ThaiTea.png"
-import Ubi from "./productAssets/Ubi.png"
-import Grape from "./productAssets/Grape Tea.png"
+import "./Product.css";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Product = () => {
-  const scrollRef = useRef(null)
-  const scrollAmount = 300
-  const location = useLocation()
-  const navigate = useNavigate()
-  const searchParams = new URLSearchParams(location.search)
-  const searchQuery = searchParams.get("search")?.toLowerCase() || ""
+  // Referensi untuk elemen scroll (jika ingin menggunakan scroll horizontal)
+  const scrollRef = useRef(null);
 
-  const allProducts = [
-    { name: "Apple Tea", image: Apple },
-    { name: "Blackcurrant Tea", image: Blackcurrant },
-    { name: "Bublegum Tea", image: Bublegum },
-    { name: "Grape Tea", image: Grape },
-    { name: "Mango Tea", image: Mango },
-    { name: "Markisa Tea", image: Markisa },
-    { name: "Streawberry Tea", image: Sreawberry },
-    { name: "Thai Tea", image: Thai },
-    { name: "Roasted Sweet p", image: Ubi },
-  ]
+  // Lokasi URL saat ini, digunakan untuk mengambil query string (contoh: ?search=teh)
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const filteredProducts = allProducts.filter((product) => product.name.toLowerCase().includes(searchQuery))
+  // Ambil query parameter `search` dari URL, lalu ubah jadi huruf kecil
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("search")?.toLowerCase() || "";
 
+  // State untuk menyimpan data produk
+  const [products, setProducts] = useState([]);
+  // State untuk loading
+  const [loading, setLoading] = useState(true);
+
+  // Fungsi untuk mengambil data produk dari API
+  const fetchProducts = async () => {
+    try {
+      setLoading(true); // Tampilkan loading
+      const response = await axios.get(
+        `https://backenddev-six.vercel.app/api/products`
+      );
+      setProducts(response.data); // Simpan data produk
+      setLoading(false); // Matikan loading
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setLoading(false); // Tetap matikan loading meski error
+    }
+  };
+
+  // Ambil data produk saat komponen pertama kali dirender
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // Filter produk berdasarkan query pencarian dari URL
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery)
+  );
+
+  // Fungsi untuk berpindah ke halaman checkout sambil mengirim data produk
   const handleCheckout = (product) => {
-    navigate("/checkout", { state: product })
-  }
+    navigate("/checkout", { state: product });
+  };
 
   return (
     <div className="container">
       <h1 className="title">Nusantara Brew</h1>
       <p className="subtitle">Cemilan dan Minuman Teh Nusantara</p>
 
-      <div className="scroll-controls">
-        <button
-          className="scroll-btn left"
-          onClick={() => scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" })}
-        >
-          &#10094;
-        </button>
-      </div>
-
       <div className="scroll-wrapper">
         <div className="grid-container" ref={scrollRef}>
-          {filteredProducts.length > 0 ? (
+          {loading ? (
+            <p>Loading products...</p>
+          ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product, index) => (
               <div key={index} className="product-wrapper">
                 <div className="product-card">
                   <div className="product-image-container">
-                    <img src={product.image} alt={product.name} className="product-image" />
+                    <img
+                      src={product.thumbnail || "/placeholder.svg"}
+                      alt={product.name}
+                      className="product-image"
+                    />
                   </div>
-                  <button className="product-name" onClick={() => handleCheckout(product)}>
+                  <button
+                    className="product-name"
+                    onClick={() => handleCheckout(product)}
+                  >
                     {product.name}
                   </button>
                 </div>
@@ -75,16 +84,6 @@ export const Product = () => {
           )}
         </div>
       </div>
-
-      <div className="scroll-controls">
-        <button
-          className="scroll-btn right"
-          onClick={() => scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })}
-        >
-          &#10095;
-        </button>
-      </div>
     </div>
-  )
-}
-
+  );
+};

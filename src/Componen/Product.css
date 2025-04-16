@@ -8,6 +8,7 @@
   width: 90%;
   cursor: pointer;
   border: none;
+  margin-top: 20px;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
   transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
 }
@@ -23,46 +24,17 @@
   transform: scale(0.95);
 }
 
-/* --- RESPONSIVE DESIGN --- */
-@media (max-width: 768px) {
-  .product-card {
-    width: 200px;
-    height: 250px;
-  }
-  
-  .product-name {
-    font-size: 1rem;
-    padding: 10px 12px;
-  }
-}
-
-@media (max-width: 500px) {
-  .grid-container {
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .product-card {
-    width: 180px;
-    height: 220px;
-  }
-  
-  .product-name {
-    font-size: 0.9rem;
-  }
-}
-
 /* --- STYLING UTAMA --- */
 .container {
   text-align: center;
   padding: 20px;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  justify-content: flex-start;
+  margin-top: 60px;
 }
 
 .title {
@@ -83,34 +55,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   position: relative;
-  overflow: hidden;
   width: 90%;
   max-width: 1200px;
   padding: 10px 0;
+  margin: 20px 0;
 }
 
+/* --- UBAH GRID-CONTAINER MENJADI RESPONSIVE GRID --- */
 .grid-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom tetap di desktop */
   gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
+  width: 100%;
   padding: 10px;
-  white-space: nowrap;
-  max-width: 100%;
-}
-
-.grid-container::-webkit-scrollbar {
-  display: none;
 }
 
 /* --- CARD PRODUK --- */
 .product-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .product-card {
-  width: 250px;
+  width: 100%;
+  max-width: 300px;
   height: 320px;
   background: rgba(250, 213, 111, 0.877);
   border-radius: 12px;
@@ -118,6 +88,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
   text-align: center;
+  margin: 0 auto;
 }
 
 .product-card:hover {
@@ -137,44 +108,62 @@
   border-radius: 8px;
 }
 
-/* --- TOMBOL SCROLL --- */
+/* --- TOMBOL SCROLL (DISARANKAN TIDAK DIPAKAI DI MODE GRID) --- */
+.scroll-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 5;
+}
+
 .scroll-btn {
   background: #ffb84d;
   color: white;
   font-size: 2rem;
   border: none;
   cursor: pointer;
-  position: absolute;
-  top: 60%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   transition: background 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
 }
 
 .scroll-btn:hover {
-  background: #ffb84d;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  background: #e08f51;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
 .scroll-btn.left {
-  left: 10px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .scroll-btn.right {
-  right: 10px;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* --- PESAN JIKA PRODUK TIDAK DITEMUKAN --- */
 .no-result {
   font-size: 1.5rem;
-  color: #888;
+  color: #f0d999;
   margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 /* --- EFEK BAYANGAN DI TEPI SCROLL-WRAPPER --- */
-.scroll-wrapper::before, 
+.scroll-wrapper::before,
 .scroll-wrapper::after {
   content: "";
   position: absolute;
@@ -199,12 +188,12 @@
 /* --- EFEK LOADING PADA PRODUK --- */
 @keyframes fadeInUp {
   from {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -213,8 +202,121 @@
   animation: fadeInUp 0.5s ease-in-out forwards;
 }
 
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.2s; }
-.product-card:nth-child(3) { animation-delay: 0.3s; }
-.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.product-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.product-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.product-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
 
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .scroll-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .product-card {
+    height: 300px;
+  }
+
+  .product-image-container {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+  }
+  .container {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .product-card {
+    height: 280px;
+  }
+
+  .product-image-container {
+    height: 180px;
+  }
+
+  .product-name {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .scroll-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .scroll-btn.left {
+    left: 0;
+  }
+
+  .scroll-btn.right {
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .product-card {
+    height: 250px;
+  }
+
+  .product-image-container {
+    height: 160px;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .scroll-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .grid-container {
+    gap: 15px;
+  }
+}
